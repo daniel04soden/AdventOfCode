@@ -1,14 +1,12 @@
-# frozen_string_literal: true
-
 def day_1(file_path)
   file = File.open(file_path, 'r')
-  data = file.readlines(file_path).map(&:chomp)
+  data = file.readlines(file_path).map(&:strip)
 
   x_array = []
   y_array = []
 
   data.each do |line|
-    x, y = line.split.map(&:to_i)
+    x, y = line.split(&:to_i)
     
     x_array << x
     y_array << y
@@ -17,16 +15,21 @@ def day_1(file_path)
   sortedX = x_array.sort
   sortedY = y_array.sort
 
-  puts "Sorted X is #{sortedX}"
-  puts "Sorted Y is #{sortedY}"
+  total_dist = 0
+
+  for k in 0..sortedX.length do
+
+    current_combo = sortedX[k].to_i + sortedY[k].to_i
+    total_dist += current_combo
+   
+  end
+
   file.close
+  return total_dist
 end
 
 def main
-  puts 'Enter a file name'
-  file_path = gets.chomp
-
-  day_1(file_path)
+  puts day_1('puzzle.txt')
 end
 
 main
